@@ -1,0 +1,36 @@
+version: '3.4' 
+
+services:
+  contact.management.web:
+    image: contactmanagement.web
+    build:
+      context: .
+      dockerfile: ContactManagement.Web/Dockerfile
+    networks:
+      - main
+    depends_on:
+      - mariadb 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "40588:80"
+
+  mariadb:
+    image: "mariadb:10.6"
+    container_name: mariadb
+    hostname: mariadb
+    restart: always
+    networks:
+      - main
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "alasoft"
+      MYSQL_PASSWORD: "alasoft123"
+    ports:
+      - "3306:3306"
+
+networks:
+  main:
+    driver: bridge
