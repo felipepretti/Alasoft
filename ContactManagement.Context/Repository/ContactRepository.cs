@@ -12,6 +12,14 @@ namespace ContactManagement.Context.Repository
         public ContactRepository(MariaDbContext context)
             : base(context)
         {
-        }        
+        }
+
+        public async Task<Contact> AddNewContactAsync(Contact contact)
+        {
+            AddOrUpdate(contact);
+            await SaveChangesAsync();
+
+            return contact;
+        }
     }
 }

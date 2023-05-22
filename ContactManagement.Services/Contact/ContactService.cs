@@ -2,6 +2,8 @@ using ContactManagement.Context;
 using ContactManagement.Context.Repository;
 using ContactManagement.Context.Repository.Interface;
 using ContactManagement.Models;
+using System.Net.Mail;
+using System.Runtime.InteropServices;
 
 namespace ContactManagement.Services
 {
@@ -13,5 +15,45 @@ namespace ContactManagement.Services
         {
             _repository = repository;
         }        
+
+        public async Task<Contact> AddNewContactAsync(Contact contact)
+        {
+            IsValidName(contact.Name);
+            IsValidContactNumber(contact.ContactNumber);
+            IsValidateEmail(contact.Email);
+
+            return await _repository.AddNewContactAsync(contact);
+        }
+
+        private void IsValidName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name) || name.Trim().Length < 5)
+            {
+                throw new Exception("Name must be at least 5 characters.");
+            }
+        }
+
+        private void IsValidContactNumber(int number)
+        {
+            if (!int.TryParse(number.ToString(), out number))
+            {
+                throw new Exception("Only 0-9 digits are allowed.");
+            }
+
+            if(number.ToString().Length != 9)
+            {
+                throw new Exception("Contact number must have 9 digits.");
+            }
+        }
+
+        private void IsValidateEmail(string email)
+        {
+            MailAddress.TryCreate(email, out var validMail);
+            
+            if(validMail is null)
+            {
+                throw new Exception("A valid e-mail must be informed.");
+            }
+        }
     }
 }
