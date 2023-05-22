@@ -1,25 +1,16 @@
-﻿using System.Data.SqlClient;
-using ContactManagement.Models;
+﻿using ContactManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
+using System;
 
 namespace ContactManagement.Context
 {
     public class MariaDbContext : DbContext
     {
-        private IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; set; }
 
         public MariaDbContext()
-        {
-            
-        }
-
-        public MariaDbContext(IConfiguration _configuration, DbContextOptions<MariaDbContext> options)
-        : base(options)
-        {
-            Configuration = _configuration;
-        }
+        { }      
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,11 +18,8 @@ namespace ContactManagement.Context
             {
                 return;
             }
-
-            //Configuration["ConnectionStrings:MariaDb"]
-            var connection = new MySqlConnection("server=127.0.0.1;user id=root;password=root;database=db");
-
-            optionsBuilder.UseMySQL(connection);
+            
+            optionsBuilder.UseMySQL("Server=localhost;Database=db;User Id=root;Password=root");
         }
 
         public DbSet<Contact> Contact { get; set; }

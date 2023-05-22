@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContactManagement.Context.Migrations
 {
     [DbContext(typeof(MariaDbContext))]
-    [Migration("20230520203154_Initial")]
+    [Migration("20230522011455_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
