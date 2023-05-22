@@ -14,7 +14,7 @@ namespace ContactManagement.Services
         public ContactService(ContactRepository repository)
         {
             _repository = repository;
-        }        
+        }
 
         public async Task<Contact> AddOrUpdateContactAsync(Contact contact)
         {
@@ -50,7 +50,7 @@ namespace ContactManagement.Services
                 throw new Exception("Only 0-9 digits are allowed.");
             }
 
-            if(number.ToString().Length != 9)
+            if (number.ToString().Length != 9)
             {
                 throw new Exception("Contact number must have 9 digits.");
             }
@@ -58,9 +58,29 @@ namespace ContactManagement.Services
 
         private void IsValidateEmail(string email)
         {
-            MailAddress.TryCreate(email, out var validMail);
-            
-            if(validMail is null)
+            try
+            {
+                if (!MailAddress.TryCreate(email, out var mailAddress))
+                    throw new Exception();
+
+                var hostParts = mailAddress.Host.Split('.');
+
+                if (hostParts.Length == 1)
+                    throw new Exception();
+
+                if (hostParts.Any(p => p == string.Empty))
+                    throw new Exception();
+
+                if (hostParts[^1].Length < 2)
+                    throw new Exception();
+
+                if (mailAddress.User.Contains(' '))
+                    throw new Exception();
+
+                if (mailAddress.User.Split('.').Any(p => p == string.Empty))
+                    throw new Exception();
+            }
+            catch
             {
                 throw new Exception("A valid e-mail must be informed.");
             }

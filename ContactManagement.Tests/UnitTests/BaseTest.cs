@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
-namespace ContactManagement.Tests
+namespace ContactManagement.Tests.UnitTests
 {
     public abstract class BaseTest
     {
@@ -15,7 +15,7 @@ namespace ContactManagement.Tests
             _context = CreateContext();
         }
 
-        private Context.MariaDbContext CreateContext()
+        private MariaDbContext CreateContext()
         {
             var options = new DbContextOptionsBuilder<MariaDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -24,7 +24,7 @@ namespace ContactManagement.Tests
 
             var configuration = new Mock<IConfiguration>();
 
-            return new Context.MariaDbContext(configuration.Object, (DbContextOptions<MariaDbContext>)options);
+            return new MariaDbContext(configuration.Object, options);
         }
     }
 }
