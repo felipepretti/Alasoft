@@ -1,14 +1,17 @@
 using ContactManagement.Context;
+using ContactManagement.Context.Repository;
+using ContactManagement.Context.Repository.Interface;
+using ContactManagement.Models;
 
 namespace ContactManagement.Services
 {
     public class ContactService : IContactService
     {
-        private readonly MariaDbContext _context;
+        private readonly ContactRepository _repository;
 
-        public ContactService(MariaDbContext context)
+        public ContactService(ContactRepository repository)
         {
-            _context = context;
-        }
+            _repository = repository;
+        }        
     }
 }
