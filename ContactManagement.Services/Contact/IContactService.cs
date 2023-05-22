@@ -4,6 +4,8 @@ namespace ContactManagement.Services
 {
     public interface IContactService
     {
-        Task<Contact> AddNewContactAsync(Contact contact);
+        Task<Contact> AddOrUpdateContactAsync(Contact contact);
+        IQueryable<Contact> GetAllContacts();
+        void DeleteContact(Contact contact);
     }
 }

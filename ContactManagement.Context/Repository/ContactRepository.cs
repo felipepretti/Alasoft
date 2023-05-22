@@ -14,7 +14,7 @@ namespace ContactManagement.Context.Repository
         {
         }
 
-        public async Task<Contact> AddNewContactAsync(Contact contact)
+        public async Task<Contact> AddOrUpdateContactAsync(Contact contact)
         {
             AddOrUpdate(contact);
             await SaveChangesAsync();

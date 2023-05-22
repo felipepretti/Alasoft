@@ -16,13 +16,23 @@ namespace ContactManagement.Services
             _repository = repository;
         }        
 
-        public async Task<Contact> AddNewContactAsync(Contact contact)
+        public async Task<Contact> AddOrUpdateContactAsync(Contact contact)
         {
             IsValidName(contact.Name);
             IsValidContactNumber(contact.ContactNumber);
             IsValidateEmail(contact.Email);
 
-            return await _repository.AddNewContactAsync(contact);
+            return await _repository.AddOrUpdateContactAsync(contact);
+        }
+
+        public IQueryable<Contact> GetAllContacts()
+        {
+            return _repository.GetAll();
+        }
+
+        public void DeleteContact(Contact contact)
+        {
+            _repository.Delete(contact);
         }
 
         private void IsValidName(string name)
