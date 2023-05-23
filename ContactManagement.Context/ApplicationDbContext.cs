@@ -39,7 +39,7 @@ namespace ContactManagement.Context
 
             if (Configuration is not null)
             {
-                connectionString = Configuration.GetConnectionString("MariaDb");
+                connectionString = Configuration.GetConnectionString("Default");
             }
 
             optionsBuilder.UseMySQL(connectionString);
