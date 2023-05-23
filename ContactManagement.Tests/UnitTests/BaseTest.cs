@@ -8,23 +8,23 @@ namespace ContactManagement.Tests.UnitTests
 {
     public abstract class BaseTest
     {
-        protected MariaDbContext _context { get; }
+        protected ApplicationDbContext _context { get; }
 
         public BaseTest()
         {
             _context = CreateContext();
         }
 
-        private MariaDbContext CreateContext()
+        private ApplicationDbContext CreateContext()
         {
-            var options = new DbContextOptionsBuilder<MariaDbContext>()
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
                 .Options;
 
             var configuration = new Mock<IConfiguration>();
 
-            return new MariaDbContext(configuration.Object, options);
+            return new ApplicationDbContext(configuration.Object, options);
         }
     }
 }

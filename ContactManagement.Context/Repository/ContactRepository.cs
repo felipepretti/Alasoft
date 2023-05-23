@@ -9,7 +9,7 @@ namespace ContactManagement.Context.Repository
 {
     public class ContactRepository : GenericRepository<Contact>
     {
-        public ContactRepository(MariaDbContext context)
+        public ContactRepository(ApplicationDbContext context)
             : base(context)
         {
         }

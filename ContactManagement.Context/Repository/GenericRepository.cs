@@ -11,10 +11,10 @@ namespace ContactManagement.Context.Repository
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
-        internal MariaDbContext _context;
+        internal ApplicationDbContext _context;
         internal DbSet<TEntity> _dbSet;
 
-        public GenericRepository(MariaDbContext context)
+        public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
