@@ -8,7 +8,7 @@ using System;
 
 namespace ContactManagement.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         private IConfiguration Configuration { get; set; }
 
@@ -18,6 +18,7 @@ namespace ContactManagement.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            
         }
 
         public ApplicationDbContext(IConfiguration configuration, DbContextOptions<ApplicationDbContext> options)
